@@ -1,6 +1,7 @@
 var Board;
 const humans = 'X';
 const AIplayer = 'O';
+let sizeOfBoard = 5;
 const winDirection1 =[
     [0 ,1 ,2],
     [3, 4, 5],
@@ -58,7 +59,7 @@ function turnclick(cell){
         if(!checkTie()) turn(bestSpot(), AIplayer);
 }
 function turn(id, player){
-    Board[id] = player;
+    Board[Number(id)] = player;
     document.getElementById(id).innerText = player;
     document.getElementById(id).style.background = "red";
     document.getElementById(id).removeEventListener('click', turnclick, false);
@@ -67,30 +68,40 @@ function turn(id, player){
     return gameWon;
 }
 function checkWin(){
-    let check;
-    console.log(Board);
+    var check = 0;
+    let winner;
     winDirection2.forEach(element => {
-           if(Board[element[0]] == 'X' && Board[element[1]] == 'X' && Board[element[2]] == 'X' && Board[element[3]] == 'X' ){
-               
-               for(let i = 0 ;i < 25 ;i++){
-                   document.getElementById(i).removeEventListener('click', turnclick , false);
-               }    
-                    document.querySelector("#playbut").innerText = "Replay";
-                    declareWinner(humans);     
+           if(sizeOfBoard == 3){
+               if(Board[element[0]] == humans && Board[element[1]] == humans && Board[element[2]] == humans){
                    check = 1;
-           }
-            if(Board[element[0]] == 'O' && Board[element[1]] == 'O' && Board[element[2]] == 'O' && Board[element[3]] == 'O'){
-                for(let i = 0 ;i < 25 ;i++){
-                    document.getElementById(i).removeEventListener('click', turnclick , false);
-                }
-                document.querySelector("#playbut").innerText = "Replay";
-               declareWinner(AIplayer);
-               check = 1;
+                   winner = humans;
+               }
+               if(Board[element[0]] == humans && Board[element[1]] == humans && Board[element[2]] == AIplayer){
+                check = 1;
+                winner = AIplayer;
+            }
+           }else{
+            console.log(Board[element[0]],Board[element[1]],Board[element[2]],Board[element[3]]);
+            if(Board[element[0]] == humans && Board[element[1]] == humans && Board[element[2]] == humans && Board[element[3]] == humans){
+                check = 1;
+                winner = humans;
+            }
+            if(Board[element[0]] == AIplayer && Board[element[1]] == AIplayer &&  Board[element[2]] == AIplayer && Board[element[3]] == AIplayer){
+                check = 1;
+                winner = AIplayer;
+            }
            }
     });
     if(check){
+        for(let i = 0 ;i < Math.pow(sizeOfBoard,2) ;i++){
+            document.getElementById(i).removeEventListener('click', turnclick , false);
+        } 
+        document.querySelector("#playbut").innerText = "Replay";
+        declareWinner(winner);  
         return true;
-    }else return false;
+    }
+    else 
+        return false;
 }
 function bestSpot(){
     for(let i = 0 ; i < 25 ; i++){
@@ -116,4 +127,4 @@ function declareWinner(player){
     document.querySelector(".endgame").style.display = "block";
     document.querySelector(".endgame .text").innerText = player;
 }
-document.getElementById("content").style.height = innerHeight + "px";
+//document.getElementById("content").style.height = innerHeight + "px";
