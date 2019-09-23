@@ -40,7 +40,7 @@
         <div id="playing">
             Turn: Player
         </div>
-        <div class="main">
+        <div class="main" id="table5">
             <table>
                 <tr>
                     <td class="cell" id="0"></td>
@@ -78,14 +78,33 @@
                     <td class="cell" id="24"></td>
                 </tr>
             </table>
-            <button onclick="startGame()" id="playbut">
+            <button onclick="startGame()" class="playbut5" id="playbut">
+                Play
+            </button>
+        </div>
+        <div class="main" id="table3">
+            <table id="_table3">
+                <tr>
+                    <td class="cell" id="0"></td>
+                    <td class="cell" id="1"></td>
+                    <td class="cell" id="2"></td>
+                </tr>
+                <tr>
+                    <td class="cell" id="3"></td>
+                    <td class="cell" id="4"></td>
+                    <td class="cell" id="5"></td>
+                </tr>
+                <tr>
+                    <td class="cell" id="6"></td>
+                    <td class="cell" id="7"></td>
+                    <td class="cell" id="8"></td>
+                </tr>
+            </table>
+            <button onclick="startGame()" class="playbut3" id="playbut">
                 Play
             </button>
         </div>
         
-        <div class="endgame">
-            <div class="text"></div>
-        </div>
         <div id="myNav" class="overlay">
 
   <!-- Button to close the overlay navigation -->
@@ -94,9 +113,17 @@
   <div class="overlay-content">
     <a href="#" id="winner-player"></a>
     <a href="#" onclick="restart()">RePlay</a>
-    <a href="" onclick="backtoMenu()">Menu</a>
+    <a href="#" onclick="backtoMenu()">Menu</a>
   </div>
 </div>
+<div id="overlay" class="overlay">
+    <div class="overlay-content" id="overlay">
+        <a href="#" id="winner-player"></a>
+        <a href="#" onclick="SizeofBoard(3)">3x3</a>
+        <a href="#" onclick="SizeofBoard(5)">5x5</a>
+      </div>
+</div>
+
     </div>
     
     <script src="script.js"></script>

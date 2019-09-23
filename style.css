@@ -133,21 +133,6 @@ ul{
     position: relative;
     margin-top: 150px;
 }
-.endgame{
-    display: none;
-    width: 200px;
-    height: 100px;
-    background-color: #333;
-    position: absolute;
-    left: 50%;
-    margin-left: -100px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    text-align: center;
-    border-radius: 5px;
-    font-size: 16px;
-    color: white;
-}
 #playing{
     text-align: center;
     font-size: 40px;
@@ -168,7 +153,7 @@ ul{
     background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
     overflow-x: hidden; /* Disable horizontal scroll */
     transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
-  }
+}
   
   /* Position the content inside the overlay */
   .overlay-content {
