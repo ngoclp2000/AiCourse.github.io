@@ -5,54 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tic Tac Toe</title>
+    <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Permanent+Marker|Indie+Flower&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="main">
-        <table>
-            <tr>
-                <td class="cell" id="0"></td>
-                <td class="cell" id="1"></td>
-                <td class="cell" id="2"></td>
-                <td class="cell" id="3"></td>
-                <td class="cell" id="4"></td>
-            </tr>
-            <tr>
-                <td class="cell" id="5"></td>
-                <td class="cell" id="6"></td>
-                <td class="cell" id="7"></td>
-                <td class="cell" id="8"></td>
-                <td class="cell" id="9"></td>
-            </tr>
-            <tr>
-                <td class="cell" id="10"></td>
-                <td class="cell" id="11"></td>
-                <td class="cell" id="12"></td>
-                <td class="cell" id="13"></td>
-                <td class="cell" id="14"></td>
-            </tr>
-            <tr>
-                <td class="cell" id="15"></td>
-                <td class="cell" id="16"></td>
-                <td class="cell" id="17"></td>
-                <td class="cell" id="18"></td>
-                <td class="cell" id="19"></td>
-            </tr>
-            <tr>
-                <td class="cell" id="20"></td>
-                <td class="cell" id="21"></td>
-                <td class="cell" id="22"></td>
-                <td class="cell" id="23"></td>
-                <td class="cell" id="24"></td>
-            </tr>
-        </table>
+    <div class="menu" id = "content">
+        <div class="header">
+            <img src="ttt.jpg" class="ttt">
+            <div style="display: flex; flex-direction: row; justify-content: center;">
+                <h3 class="c1">Tic</h3>
+                <h3 class="c2">Tac </h3>
+                <h3 class="c3">Toe</h3>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div id="menu-starter">
+            <ul>
+                <li>
+                    <h3 class="option1" onclick="start();">Start</h3>
+                    <div class="line1"></div>
+                </li>
+                <li>
+                    <h3 class="option2">How to Play</h3>
+                    <div class="line2"></div>
+                </li>
+                <li>
+                    <h3 class="option3">About</h3>
+                    <div class="line3"></div>
+                </li>
+            </ul>
+        </div>
+        <div class="option-but"><i class="fas fa-pause" style="cursor: pointer;"></i></div>
+        <div class="option-but"><i class="fas fa-backward" onclick="back()" style="cursor: pointer;"></i></div>
+        <div id="playing">
+            Turn: Player
+        </div>
+        <div class="main">
+            <table>
+                <tr>
+                    <td class="cell" id="0"></td>
+                    <td class="cell" id="1"></td>
+                    <td class="cell" id="2"></td>
+                    <td class="cell" id="3"></td>
+                    <td class="cell" id="4"></td>
+                </tr>
+                <tr>
+                    <td class="cell" id="5"></td>
+                    <td class="cell" id="6"></td>
+                    <td class="cell" id="7"></td>
+                    <td class="cell" id="8"></td>
+                    <td class="cell" id="9"></td>
+                </tr>
+                <tr>
+                    <td class="cell" id="10"></td>
+                    <td class="cell" id="11"></td>
+                    <td class="cell" id="12"></td>
+                    <td class="cell" id="13"></td>
+                    <td class="cell" id="14"></td>
+                </tr>
+                <tr>
+                    <td class="cell" id="15"></td>
+                    <td class="cell" id="16"></td>
+                    <td class="cell" id="17"></td>
+                    <td class="cell" id="18"></td>
+                    <td class="cell" id="19"></td>
+                </tr>
+                <tr>
+                    <td class="cell" id="20"></td>
+                    <td class="cell" id="21"></td>
+                    <td class="cell" id="22"></td>
+                    <td class="cell" id="23"></td>
+                    <td class="cell" id="24"></td>
+                </tr>
+            </table>
+            <button onclick="startGame()" id="playbut">
+                Play
+            </button>
+        </div>
+        
+        <div class="endgame">
+            <div class="text"></div>
+        </div>
+        <div id="myNav" class="overlay">
+
+  <!-- Button to close the overlay navigation -->
+
+  <!-- Overlay content -->
+  <div class="overlay-content">
+    <a href="#" id="winner-player"></a>
+    <a href="#" onclick="restart()">RePlay</a>
+    <a href="" onclick="backtoMenu()">Menu</a>
+  </div>
+</div>
     </div>
-    <div class="endgame">
-        <div class="text"></div>
-    </div>
-    <button onclick="startGame()" id="playbut">
-            Play
-    </button>
+    
     <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/8e500f9321.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@ var Board;
 const humans = 'X';
 const AIplayer = 'O';
 let sizeOfBoard = 5;
+var delayInMilliseconds = 1000; //1 second
 const winDirection1 =[
     [0 ,1 ,2],
     [3, 4, 5],
@@ -45,18 +46,36 @@ const winDirection2 =[
 const cells = document.querySelectorAll('.cell');
 
 function startGame(){
-    document.querySelector(".endgame").style.display = "none";
     Board = Array.from(Array(25).keys);
     for(let i = 0; i < 25; i++){
         cells[i].innerText = "";
         cells[i].style.removeProperty('background-color');
         cells[i].addEventListener('click',turnclick, false);
     }
+    document.querySelector("#playing").style.display = "block";
+    document.querySelector("#playbut").innerText = "Replay";
 }
 function turnclick(cell){
     let gameWon = turn(cell.target.id,humans);
-    if(!gameWon)
-        if(!checkTie()) turn(bestSpot(), AIplayer);
+    if(!gameWon){
+        document.querySelector("#playing").innerText = "Turn: Computer";
+        for(let i = 0 ; i < Math.pow(sizeOfBoard,2); i++){
+            document.getElementById(i).removeEventListener('click', turnclick, false);
+        }
+        setTimeout(function() {
+        //your code to be executed after 1 second
+        if(!checkTie()) {
+            for(let i = 0 ; i < Math.pow(sizeOfBoard,2); i++){
+                if(!(Board[i] == humans || Board[i] == AIplayer)){
+                    document.getElementById(i).addEventListener('click',turnclick, false);
+                }
+            }
+            turn(bestSpot(), AIplayer);
+        }
+        
+        document.querySelector("#playing").innerText = "Turn: Player";
+             }, delayInMilliseconds);
+            }       
 }
 function turn(id, player){
     Board[Number(id)] = player;
@@ -64,7 +83,6 @@ function turn(id, player){
     document.getElementById(id).style.background = "red";
     document.getElementById(id).removeEventListener('click', turnclick, false);
     let gameWon = checkWin();
-    console.log(gameWon);
     return gameWon;
 }
 function checkWin(){
@@ -76,7 +94,7 @@ function checkWin(){
                    check = 1;
                    winner = humans;
                }
-               if(Board[element[0]] == humans && Board[element[1]] == humans && Board[element[2]] == AIplayer){
+               else if(Board[element[0]] == humans && Board[element[1]] == humans && Board[element[2]] == AIplayer){
                 check = 1;
                 winner = AIplayer;
             }
@@ -86,7 +104,7 @@ function checkWin(){
                 check = 1;
                 winner = humans;
             }
-            if(Board[element[0]] == AIplayer && Board[element[1]] == AIplayer &&  Board[element[2]] == AIplayer && Board[element[3]] == AIplayer){
+            else if(Board[element[0]] == AIplayer && Board[element[1]] == AIplayer &&  Board[element[2]] == AIplayer && Board[element[3]] == AIplayer){
                 check = 1;
                 winner = AIplayer;
             }
@@ -124,7 +142,32 @@ function checkTie(){
     return true;
 }
 function declareWinner(player){
-    document.querySelector(".endgame").style.display = "block";
-    document.querySelector(".endgame .text").innerText = player;
+    document.getElementById("myNav").style.width = "100%";
+    document.getElementById("winner-player").innerText = "Winner: " + player;
 }
-//document.getElementById("content").style.height = innerHeight + "px";
+document.getElementById("content").style.height = innerHeight + "px";
+
+let menu = document.querySelector("#menu-starter");
+let button = document.querySelectorAll(".option-but");
+let BoardStart = document.querySelector(".main");
+function start(){
+   menu.style.display = "none";
+   button[0].style.display = "block";
+   button[1].style.display = "block";
+   BoardStart.style.display = "block";
+}
+function back(){
+    menu.style.removeProperty("display");
+    button[0].style.display = "none";
+    button[1].style.display ="none";
+    BoardStart.style.display ="none";
+    document.querySelector("#playing").style.display = "none";
+}
+function restart(){
+    document.getElementById("myNav").style.width = "0%";
+    startGame();
+}
+function backtoMenu(){
+    document.getElementById("myNav").style.width = "0%";
+    document.querySelector("#playing").style.display = "none";
+}
