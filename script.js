@@ -16,20 +16,33 @@ const winDirection1 =[
     [2, 4, 6]
 ];
 const winDirection2 =[
-    [0,1,2,3,4],
-    [5,6,7,8,9],
-    [10,11,12,13,14],
-    [15,16,17,18,19],
-    [20,21,22,23,24],
-    [0,5,10,15,20],
-    [1,6,11,16,21],
-    [2,7,12,17,22],
-    [3,8,13,18,23],
-    [4,9,14,19,24],
-    [0,6,12,18,24],
-    [4,8,12,16,20]
+    [0,1,2,3],
+    [1,2,3,4],
+    [5,6,7,8],
+    [6,7,8,9],
+    [10,11,12,13],
+    [11,12,13,14],
+    [15,16,17,18],
+    [16,17,18,19],
+    [20,21,22,23],
+    [21,22,23,24],
+    [0,5,10,15],
+    [5,10,15,20],
+    [1,6,11,16],
+    [6,11,16,21],
+    [2,7,12,17],
+    [7,12,17,22],
+    [3,8,13,18],
+    [8,13,18,23],
+    [4,9,14,19],
+    [9,14,19,24],
+    [0,6,12,18],
+    [6,12,18,24],
+    [4,8,12,16],
+    [8,12,16,20],
+    [3,7,11,15],
+    [9,13,17,21]
 ];
-
 let choice_win_direct;
 function SizeofBoard(number){
     sizeOfBoard = number;
@@ -86,7 +99,9 @@ function turnclick(cell){
                     true_id[i].addEventListener('click',turnclick, false);
                 }
             }
-            turn(bestSpot(Board,AIplayer)[0], AIplayer);
+            turn(bestSpot(Board,AIplayer), AIplayer);
+            console.log(count);
+            count = 0;
             playSound();
         document.querySelector("#playing").innerText = "Turn: Player";
              }, delayInMilliseconds);
@@ -127,12 +142,12 @@ function checkWin(Board1){
             }
            }else{
             //console.log(Board[element[0]],Board[element[1]],Board[element[2]],Board[element[3]]);
-            if(Board1[element[0]] == humans && Board1[element[1]] == humans && Board1[element[2]] == humans && Board1[element[3]] == humans && Board1[element[4]] == humans){
+            if(Board1[element[0]] == humans && Board1[element[1]] == humans && Board1[element[2]] == humans && Board1[element[3]] == humans){
                 check = 1;
                 winner = humans;
                 winnerTemp = humans;
             }
-            else if(Board1[element[0]] == AIplayer && Board1[element[1]] == AIplayer &&  Board1[element[2]] == AIplayer && Board1[element[3]] == AIplayer && Board1[element[4]]== AIplayer){
+            else if(Board1[element[0]] == AIplayer && Board1[element[1]] == AIplayer &&  Board1[element[2]] == AIplayer && Board1[element[3]] == AIplayer){
                 check = 1;
                 winner = AIplayer;
                 winnerTemp = AIplayer;
@@ -246,8 +261,9 @@ function _checkTie(_Board){
     return true;
 }
 function bestSpot(_Board,player){
-    if(Find_available_node(_Board).length <= 10){
-        return minmax(_Board,player,0)
+    if(Find_available_node(_Board).length <= 15){
+        let value = Find_available_node(_Board);
+        return alpha_beta_pruning(_Board,0,player,-1000,1000)[0];
     }else{
         do{
             let random_pos = Math.floor(Math.random() * Math.pow(sizeOfBoard,2));
@@ -256,27 +272,39 @@ function bestSpot(_Board,player){
         }while(1);
     }
 }
-
-function minmax(_Board,player,depth){
-    let list = [[]];
-    let list_available_node =  Find_available_node(_Board);
-    list_available_node.forEach(element => {
-        let Board_copy = [..._Board];
-        Board_copy[element] = player;
-        if(checkWin(Board_copy))
+let count = 0;
+// Not done please consider more about alpha beta
+function alpha_beta_pruning(_Board,depth,player,alpha,beta){
+    
+    count++;
+    let list = Find_available_node(_Board);
+    let list_return_value = [];
+    for(let i = 0 ; i < list.length ; i++){
+        let _boardCopy = [..._Board];
+        _boardCopy[list[i]] = player;
+        if(checkWin(_boardCopy)){
             if(player == AIplayer)
-                 list.push([element,10-depth]);
-            else 
-                list.push([element,depth-10]);
-        else if(_checkTie(Board_copy))
-                list.push([element,0]);
-        else 
-                list.push([element,minmax(Board_copy, player == AIplayer ? humans : AIplayer,depth+1)[1]]);
-    });
-    if(player == AIplayer){
-        return find_max(list);
+                list_return_value.push([list[i],1]);
+            else
+            list_return_value.push([list[i],-1]);
+        }else if(_checkTie(_boardCopy)){
+            list_return_value.push([list[i],0]);
+        }
+        else{
+                let value = alpha_beta_pruning(_boardCopy,depth+1,player == AIplayer ? humans : AIplayer,alpha,beta);
+                list_return_value.push([list[i],value[1]]);
+                if(player === AIplayer){
+                    alpha  = Math.max(alpha,value[1]);
+                }else{
+                    beta = Math.min(beta,value[1]);
+                }
+        }
+        if(alpha >= beta)
+            break;
     }
-    else{
-        return find_min(list);
+    if(player === AIplayer){
+        return find_max(list_return_value);
+    }else{
+        return find_min(list_return_value);
     }
 }
