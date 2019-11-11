@@ -17,6 +17,7 @@ td{
     width: 100%;
     height: auto;
 }
+
 table{
     left: 37%;
     border-collapse: collapse;
@@ -140,6 +141,12 @@ ul{
     display: none;
 }
 
+#pausegame .overlay-content .pointer{
+    margin-bottom: 40px;
+    color: white !important;
+    cursor: pointer;
+    
+}
 
 .overlay {
     /* Height & width depends on how you want to reveal the overlay (see JS below) */   
