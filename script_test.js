@@ -305,18 +305,16 @@ function Point(_Board){
 }
 //Hàm tính điểm dựa vào số lượng X,O trong row col diag 
 function calculate(numX,numO){
-    let point = 0;
     if(numX == 3 && numO == 0)
-        point-=1000;
+        return -1000;
     else if(numO == 4)
-        point+=2000;
+        return 2000;
     else if(numO > 0)
-        point++;
+        return 1;
     else if(numX == 2 && numO == 0)
-        point--;
+        return -1;
     else if(numO == 3 && numX ==0)
-        point++;
-    return point;
+        return 1;
 }
 // function minmax(_Board,player,depth){
 //     let list = [[]];
