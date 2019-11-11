@@ -35,8 +35,8 @@
                 </li>
             </ul>
         </div>
-        <div class="option-but"><i class="fas fa-pause" style="cursor: pointer;"></i></div>
-        <div class="option-but"><i class="fas fa-backward" onclick="back()" style="cursor: pointer;"></i></div>
+        <div class="option-but"><i class="fas fa-pause fa-2x" style="cursor: pointer;" onclick="pause()"></i></div>
+        <div class="option-but"><i class="fas fa-backward fa-2x" onclick="back()" style="cursor: pointer;"></i></div>
         <div id="playing">
             Turn: Player
         </div>
@@ -78,9 +78,7 @@
                     <td class="cell" id="24"></td>
                 </tr>
             </table>
-            <button onclick="startGame()" class="playbut5" id="playbut">
-                Play
-            </button>
+            <i class="fas fa-redo-alt fa-2x" id="playbut" onclick="startGame()" style="cursor: pointer;"></i>
         </div>
         <div class="main" id="table3">
             <table id="_table3">
@@ -100,12 +98,10 @@
                     <td class="cell" id="8"></td>
                 </tr>
             </table>
-            <button onclick="startGame()" class="playbut3" id="playbut">
-                Play
-            </button>
+            <i class="fas fa-redo-alt fa-2x" id="playbut" onclick="startGame()" style="cursor: pointer;"></i>
         </div>
         
-        <div id="myNav" class="overlay">
+        <div id="myNav" class="overlay" >
 
   <!-- Button to close the overlay navigation -->
 
@@ -116,6 +112,16 @@
     <a href="#" onclick="backtoMenu()">Menu</a>
   </div>
 </div>
+<div id="pausegame" class="overlay">
+
+    <!-- Button to close the overlay navigation -->
+  
+    <!-- Overlay content -->
+    <div class="overlay-content">
+      <i class="fas fa-play pointer fa-4x" onclick="resume()" style="margin-top: 150px;"></i><br>
+      <i class="fas fa-backward pointer fa-4x" onclick="backtoMenu()"></i>
+    </div>
+  </div>
 <div id="overlay" class="overlay">
     <div class="overlay-content" id="overlay">
         <a href="#" id="winner-player"></a>
