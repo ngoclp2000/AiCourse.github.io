@@ -46,7 +46,7 @@ function startGame(){
         cells[i].addEventListener('click',turnclick, false);
     }
     document.querySelector("#playing").style.display = "block";
-    document.querySelector("#playbut").addEventListener('click', startGame);
+    document.querySelector("#playbut").addEventListener('click', restart);
 }
 
 function turnclick(cell){
@@ -85,18 +85,20 @@ function turn(id, player){
     true_id[id].style.background = "red";
     true_id[id].removeEventListener('click', turnclick, false);
     let gameWon = checkWin(Board);
-    if(gameWon){
+    if(gameWon[1]){
         for(let i = 0 ;i < Math.pow(sizeOfBoard,2) ;i++){
             document.getElementById(i).removeEventListener('click', turnclick , false);
         } 
+        console.log(gameWon[0]);
         declareWinner(player); 
     }
-    return gameWon;
+    return gameWon[1];
 }
 
 function checkWin(Board1){
     // Phần này chắc dễ hiểu =))
     let check = 0;
+    let win_seq;
         choice_win_direct.forEach(element=>{
             let num_X = 0;
             let num_O = 0;
@@ -108,12 +110,14 @@ function checkWin(Board1){
             })
             if((num_X == 3 && num_O == 0) || (num_X == 0 && num_O == 3)){
                 check = 1;
+                win_seq = element;
+                return [win_seq,true];
             }
         })
     if(check)
-        return true;
+        return [win_seq,true];
     else   
-        return false;
+        return [0,false];
 }
 function checkTie(){
     for(let i = 0 ; i < Math.pow(sizeOfBoard,2) ;i++){
@@ -188,7 +192,7 @@ function alpha_beta_pruning(_Board,depth,player,alpha,beta){
     for(let i = 0 ; i < list.length ; i++){
         let _boardCopy = [..._Board];
         _boardCopy[list[i]] = player;
-        if(checkWin(_boardCopy)){
+        if(checkWin(_boardCopy)[1]){
             if(player == AIplayer)
                 list_return_value.push([list[i],1]);
             else
@@ -227,21 +231,18 @@ function start(){
 }
 function back(){
     menu.style.removeProperty("display");
-    startGame();
+    document.getElementById("_table3").innerText ="";
     button[0].style.display = "none";
     button[1].style.display ="none";
     BoardStart.style.display ="none";
     document.querySelector("#playing").style.display = "none";
 }
-async function restart(){
+function restart(){
     document.getElementById("myNav").style.width = "0%";
     BoardStart.style.display = "none";
     document.getElementById("playing").style.display = "none";
-    for(let i = 0; i < Math.pow(sizeOfBoard,2); i++){
-        cells[i].innerText = "";
-        cells[i].style.removeProperty('background-color');
-        cells[i].addEventListener('click',turnclick, false);
-    }
+    document.getElementById("_table3").innerText ="";
+    startGame();
 }
 function backtoMenu(){
     document.getElementById("myNav").style.width = "0%";
