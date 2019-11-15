@@ -16,9 +16,22 @@ const winDirection1 =[
     [2, 4, 6]
 ];
 let choice_win_direct;
-
+function createBoard(){
+    for(let i = 0 ; i < 3 ; i++){
+        var node = document.createElement("tr");
+        document.getElementById("_table3").appendChild(node);
+        let row = document.getElementById("_table3").children;
+        for(let j =0 ; j < 3 ; j++){
+            var block = document.createElement("td");
+            block.setAttribute("class", "cell");
+            block.setAttribute('id', i*3 +j);
+            row[i].appendChild(block);
+        }
+    }
+}
 function startGame(){
     sizeOfBoard = 3;
+    createBoard();
     button[0].style.display = "block";
     button[1].style.display = "block";
     cells = document.querySelectorAll('#table3 .cell');
@@ -224,7 +237,11 @@ async function restart(){
     document.getElementById("myNav").style.width = "0%";
     BoardStart.style.display = "none";
     document.getElementById("playing").style.display = "none";
-    startGame();
+    for(let i = 0; i < Math.pow(sizeOfBoard,2); i++){
+        cells[i].innerText = "";
+        cells[i].style.removeProperty('background-color');
+        cells[i].addEventListener('click',turnclick, false);
+    }
 }
 function backtoMenu(){
     document.getElementById("myNav").style.width = "0%";
