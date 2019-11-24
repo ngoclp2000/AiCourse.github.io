@@ -100,6 +100,7 @@ function startGame(){
         cells[i].addEventListener('mouseover', hoverOver, false);
         cells[i].addEventListener('mouseout', hoverOut,false);
     }
+    arrayBig = [];
     win_Direction = [];
     if(sizeOfBoard == 3) getRightSeq(3)
     else if (sizeOfBoard == 5)
@@ -107,6 +108,7 @@ function startGame(){
     else
         getRightSeq(5);
     document.querySelector("#playing").style.display = "block";
+    console.log(win_Direction);
 }
 
 function turnclick(cell){
@@ -555,5 +557,12 @@ function vertical(){
         limit_value += 1;
         arrayBig.push(array_temp);
         run_value += 1;
+    }
+}
+function ChangeWeb(index){
+    if(!index){
+        window.location.href = "howtoplay.html";
+    }else{
+        window.location.href = "about.html";
     }
 }

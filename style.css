@@ -13,22 +13,23 @@ body{
     font-size: 2vw;
     color: #f1f1f1;
 }
+a{
+    text-decoration: none;
+}
 td{
-    border: 2px solid #f1f1f1;
+    border: 2px solid black;
     height: 4.2vw;
     width: 4.2vw;
     font-size: 3vw;
     text-align: center;
     font-family: "Comic Sans MS", cursive;
     cursor: pointer;
-    -webkit-transition: 1s ease-in-out;
-    -moz-transition: 1s ease-in-out;
-    -o-transition: 1s ease-in-out;
-    transition: 1s ease-in-out;
     position: relative;
-}
+    color: black;
+}   
 
 table{
+    background-color: #f1f1f1;
     border-collapse: collapse;
     position: relative;
     display: block;
@@ -80,8 +81,8 @@ table tr td:last-child{
     justify-content: center;
 }
 .line{
-    width: 250px;
-    height: 15px;
+    width: 13vw;
+    height: 1.5vh;
     background-color: white;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
@@ -99,6 +100,15 @@ ul{
     height: auto;
     position: relative;
     cursor: pointer;
+}
+.option1{
+    width: 9vw;
+}
+.option2{
+    width: 19vw;
+}
+.option3{
+    width: 10vw;
 }
 .c1,.c2{
     margin-right: 5px;
@@ -118,22 +128,21 @@ ul{
     background-color: white;
 }
 .flex-box{
-    display: flex;
+    display: grid;
     justify-content: center;
-    flex-direction: column;
 }
 .option1:hover ~ .lines .line1{
-    width: 120px;
+    width: 8.5vw;
     transition-property: width;
     transition-duration: 0.5s;
 }
 .option2:hover ~  .lines .line2{
-    width: 290px;
+    width: 19vw;
     transition-property: width;
     transition-duration: 0.5s;
 }
 .option3:hover ~  .lines .line3{
-    width: 135px;
+    width: 9.5vw;
     transition-property: width;
     transition-duration: 0.5s;
 }

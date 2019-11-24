@@ -36,6 +36,19 @@
       .content-main{
          grid-template-columns: 8% 82% 10%;
       }
+      .line{
+         width: 35vw;
+         height: 1.5vh;
+      }
+      .option1{
+         width : 22vw;
+      }
+      .option2{
+            width: 50vw;
+      }
+      .option3{
+            width: 23vw;
+      }
    }
 
    /* Ipad */
@@ -64,6 +77,19 @@
       .content-main{
          grid-template-columns: 11% 78% 11% !important;
       }
+      .line{
+         width: 27vw;
+         height: 1.5vh;
+      }
+      .option1{
+         width: 18vw;
+      }
+      .option2{
+         width: 38vw;
+       }
+      .option3{
+         width: 20vw;
+       }
    }
    /* Ipad Pro */
    @media screen and (min-width: 1024px) and (max-width: 1200px){
@@ -94,6 +120,19 @@
       #playing{
          font-size: 5vw;
       }
+      .line{
+         width: 27vw;
+         height: 1.5vh;
+      }
+      .option1{
+         width: 18vw;
+      }
+      .option2{
+         width: 40vw;
+   }
+   .option3{
+         width: 20vw;
+   }
    }
    @media screen and (min-width: 1500px){
       .two-type{
