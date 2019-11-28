@@ -93,7 +93,7 @@ setInterval(function () {
     } else if (sizeOfBoard == 3 && innerWidth >= 320 && innerWidth <= 414) {
         document.getElementById("main").style.gridTemplateColumns = "20% 60% 20%";
     }
-    if (innerWidth > 1500 && count_special == 0) {
+    /*if (innerWidth > 1500 && count_special == 0) {
         let i = document.createElement('a');
         i.setAttribute('class', 'sizeX');
         i.setAttribute('id', 's9');
@@ -110,7 +110,7 @@ setInterval(function () {
         }
         boolean_type = 0;
         count_special = 0;
-    }
+    }*/
 }, 0);
 function special() {
     size(9);
