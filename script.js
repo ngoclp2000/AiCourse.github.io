@@ -94,6 +94,7 @@ function startGame() {
     BoardStart.style.justifyContent = "center";
     count_hover = humans;
     turnPlayer = 0;
+    count_boolean=0;
     Board = Array.from(Array(Math.pow(sizeOfBoard, 2)).keys);
     for (let i = 0; i < Math.pow(sizeOfBoard, 2); i++) {
         cells[i].innerText = "";
