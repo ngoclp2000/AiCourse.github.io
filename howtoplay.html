@@ -11,13 +11,38 @@
     <link rel="stylesheet" href="responsive.css">
 </head>
 <style>
+
 .main-content{
-    display: grid;
+    position: relative;
+    background: white;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1.5vw;
+}
+.step{
+    font-size: 43px;
+    color: #545454;
+    padding: 8px 15px 3px 0;
+    float: left;
+    font-weight: bold;
+}
+.div-cont{
+    margin-top: 5px;
+    display: flex;
     justify-content: center;
 }
-img{
-    width: 50vw;
-    height: 50vh;
+.img-tic{
+    position: relative;
+    width: 12vw;
+    height: 12vw;
+    justify-content: center;
+}
+.back-ward{
+    cursor: pointer;
+    text-decoration: none;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
 }
 </style>
 <body>
@@ -29,15 +54,53 @@ img{
                         <h3 class="c2">Tac </h3>
                         <h3 class="c3">Toe</h3>
                     </div>
+                    
                 </div>
                 <div class="lines">
                     <div class="line">
         
                     </div>
                 </div>
+                <div class="back-ward"><i class="fas fa-backward fa-3x" onclick="back()"></i></div>
                 <div class="main-content">
-                    <img src="rule.jpg" alt="">
+                    <div class="step">
+                        1
+                    </div>
+                    <p>
+                        <b>Draw the board.</b> First, you have to draw the board, which is made up of a 3 x 3 grid of squares. This means it has three rows of three squares. Some people play with a 4 x 4 grid, but that is for more advanced players, and we will focus on the 3 x 3 grid here.</p>
+                        <br>
+                        <div class="step">
+                                2
+                            </div>
+                            <p>
+                                    <b>Have the first player go first.</b> Though traditionally, the first player goes with "X", you always be the first player. These symbols will be placed on the table, in the attempt to have three of them in a row. If you're going first, then the best move you can make is to move into the center. This will maximize your chances of winning, since you'll be able to create a row of three "X"s or "O"s in more combinations (4) this way than if you chose a different square.
+                                </p>
+                                <br>
+                                <div class="step">
+                                    3
+                                </div>
+                                <p>
+                                        <b>Have the second player go second.</b> After the first player goes, then the second player should put down his symbol, which will be different from the symbol of the first player. The second player can either try to block the first player from creating a row of three, or focus on creating his or her own row of three. Ideally, the player can do both.
+                                </p>
+                                <br>
+                                <div class="step">
+                                    4
+                                </div>
+                                <p>
+                                        <b>Keep alternating moves until one of the players has drawn a row of three symbols or until no one can win.</b> The first player to draw three of his or her symbols in a row, whether it is horizontal, vertical, or diagonal, has won tic-tac-toe. However, if both players are playing with optimal strategy, then there's a good chance that no one will win because you will have blocked all of each other's opportunities to create a row of three
+                                </p>
+                              
+                                    <div class="div-cont">
+                                            <img src="board.jpeg" alt="" class="img-tic">
+                                    </div>
+                                
                 </div>
     </div>
+    <script>
+            function back(){
+                window.location.href = "index.html";
+            }
+        </script>
+    <script src="https://kit.fontawesome.com/8e500f9321.js" crossorigin="anonymous"></script>
 </body>
 </html>

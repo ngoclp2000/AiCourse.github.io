@@ -8,11 +8,14 @@
     <title>Tic Tac Toe</title>
     <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Permanent+Marker|Indie+Flower&display=swap"
         rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Baloo+Da&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="responsive.css">
 </head>
 
 <body>
+    
     <div class="menu" id="content">
         <div class="header">
             <img src="ttt.jpg" class="ttt">
@@ -52,9 +55,9 @@
             </ul>
         </div>
         <div id="option-but">
-            <div class="option-but"><i class="fas fa-pause fa-2x" id="pause-game"></i></div>
-            <div class="option-but"><i class="fas fa-backward fa-2x" id="playbut"></i></div>
-            <div class="option-but"><i class="fas fa-redo-alt fa-2x" id="restart-but"></i></div>
+            <button id="pause-game"><div class="option-but"><i class="fas fa-pause fa-2x" ></i></div></button>
+            <button id="playbut"><div class="option-but"><i class="fas fa-backward fa-2x" ></i></div></button>
+            <button id="restart-but"><div class="option-but"><i class="fas fa-redo-alt fa-2x" ></i></div></button>
         </div>
         <div id="playing">
 
@@ -113,7 +116,6 @@
                     <div class="numberOfplayer">
                         <a class="sizeX" onclick="size(3)" id="s3">3x3</a>
                         <a class="sizeX" onclick="size(5)" id="s5">5x5</a>
-                        
                     </div>
                     <div><a><i class="fas fa-play pointer sizeX" id="s-1" onclick="go()"></i></a></div>
                 </div>

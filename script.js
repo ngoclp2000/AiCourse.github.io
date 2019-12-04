@@ -19,6 +19,7 @@ function size(choice) {
         count_boolean++;
     }
     sizeOfBoard = choice;
+    //Hightlight the chosen size
     let chosen = "s" + choice.toString();
     let e = document.querySelectorAll(".sizeX");
     e.forEach(element => {
@@ -51,6 +52,7 @@ function option(type) {
     }
     typeGame = type;
     if (type) {
+        //Display information on main Board with two players mode
         document.getElementsByClassName("two-type")[0].style.display = "block";
         document.getElementsByClassName("two-type")[1].style.display = "block";
         document.getElementById("one").style.display = "none";
@@ -60,6 +62,7 @@ function option(type) {
         document.getElementById("playing").innerText = "Turn: Player 1";
     }
     else {
+        //Display information on main Board with one players mode
         document.getElementsByClassName("two-type")[0].style.display = "none";
         document.getElementsByClassName("two-type")[1].style.display = "none";
         document.getElementById("one").style.display = "block";
@@ -71,30 +74,34 @@ function option(type) {
 
 }
 function go() {
-    //console.log(count_boolean);
-    if (count_boolean >= 2) {
+    //Check if player choose both size and type game
+    if (count_boolean == 2) {
         document.getElementById("option").style.width = "0%";
         startGame();
     } else {
         alert("You have not chosen size Of Board or Type Game!!!");
     }
+    document.getElementById("option-but").style.display = "flex";
 }
 function startGame() {
     createBoard();
-    option(typeGame);
+    //Display the pause,replay,backtomenu button
     button1[0].style.display = "block";
     button1[1].style.display = "block";
     button1[2].style.display = "block";
+    //Add event click to three buttons
     document.getElementById("playbut").addEventListener('click', backtoMenu);
     document.getElementById("restart-but").addEventListener('click', restart);
+    document.getElementById("pause-game").addEventListener('click', pausegame);
+    //Display the Board
     let cells = document.querySelectorAll('#tableX .cell');
     BoardStart = document.getElementById("tableX");
     BoardStart.style.display = "flex";
     BoardStart.style.flexDirection = "column";
     BoardStart.style.justifyContent = "center";
+    //Add event click to all cells of the Board
     count_hover = humans;
     turnPlayer = 0;
-    count_boolean=0;
     Board = Array.from(Array(Math.pow(sizeOfBoard, 2)).keys);
     for (let i = 0; i < Math.pow(sizeOfBoard, 2); i++) {
         cells[i].innerText = "";
@@ -103,6 +110,7 @@ function startGame() {
         cells[i].addEventListener('mouseover', hoverOver, false);
         cells[i].addEventListener('mouseout', hoverOut, false);
     }
+    //Generate the Win_direction array of specific size of Board
     arrayBig = [];
     win_Direction = [];
     if (sizeOfBoard == 3) getRightSeq(3)
@@ -111,23 +119,25 @@ function startGame() {
     else
         getRightSeq(5);
     document.querySelector("#playing").style.display = "block";
-    console.log(win_Direction);
 }
 
 function turnclick(cell) {
     playSound();
     let gameWon;
+    //Two player mode turnclick
     if (turnPlayer % 2 == 0 && typeGame) {
-        gameWon = turn(cell.target.id, humans);
+        gameWon = fill_in_board(cell.target.id, humans);
         document.getElementById("playing").innerText = "Turn: Player 2";
     } else if (turnPlayer % 2 != 0 && typeGame) {
-        gameWon = turn(cell.target.id, AIplayer);
+        gameWon = fill_in_board(cell.target.id, AIplayer);
         document.getElementById("playing").innerText = "Turn: Player 1";
     } else {
-        gameWon = turn(cell.target.id, humans);
+        gameWon = fill_in_board(cell.target.id, humans);
     }
+
     turnPlayer++;
     let true_id = "#tableX" + " " + "table" + " " + "td";
+    //One player mode turnclick
     if (!gameWon && !typeGame) {
         document.querySelector("#playing").innerText = "Turn: Computer";
         true_id = document.querySelectorAll(true_id);
@@ -145,7 +155,7 @@ function turnclick(cell) {
                         true_id[i].addEventListener('click', turnclick, false);
                     }
                 }
-                turn(bestSpot(Board, AIplayer), AIplayer);
+                fill_in_board(bestSpot(Board, AIplayer), AIplayer);
                 playSound();
                 document.querySelector("#playing").innerText = "Turn: Player";
             }, delayInMilliseconds);
@@ -159,14 +169,14 @@ function turnclick(cell) {
             }
         }, 500);
     }
-    //document.getElementById(playbut).addEventListener('click', restart);     
 }
 
-function turn(id, player) {
-    console.log(id);
+function fill_in_board(id, player) {
+    //Remove the hover over and hover our event in clicked cell
     document.querySelectorAll('#tableX .cell')[id].removeEventListener('mouseover', hoverOver, false);
     document.querySelectorAll('#tableX .cell')[id].removeEventListener('mouseout', hoverOut, false);
     document.querySelectorAll('#tableX .cell')[id].style.opacity = "1";
+    //Fill the clicked cell into Board
     Board[Number(id)] = player;
     (count_hover === humans) ? count_hover = AIplayer : count_hover = humans;
     let true_id = "#tableX" + " " + "table" + " " + "td";
@@ -175,6 +185,7 @@ function turn(id, player) {
     //true_id[id].style.background = "red";
     true_id[id].removeEventListener('click', turnclick, false);
     let gameWon = checkWin(Board);
+    //Check the Game win
     if (gameWon[1]) {
         for (let i = 0; i < Math.pow(sizeOfBoard, 2); i++) {
             document.getElementById(i).removeEventListener('click', turnclick, false);
@@ -183,27 +194,17 @@ function turn(id, player) {
         let count_time = 0;
         document.getElementById("playbut").removeEventListener('click', backtoMenu);
         document.getElementById("restart-but").removeEventListener('click', restart);
-        while (count_time <= 3) {
-            if (count_time % 2 == 0) {
-                setTimeout(() => {
-                    gameWon[0].forEach((element) => {
-                        document.getElementById(element).style.transition = "all 0.7s linear";
-                        document.getElementById(element).style.transform = "scale(1.3)";
-                    })
-                }, 700 * (count_time + 1));
-            } else {
-                setTimeout(() => {
-                    gameWon[0].forEach((element) => {
-                        document.getElementById(element).style.transition = "all 0.7s linear";
-                        document.getElementById(element).style.transform = "scale(1)";
-                    })
-                }, 700 * (count_time + 1));
-            }
-            count_time++;
-        }
+        document.getElementById("pause-game").removeEventListener('click',pausegame);
+        gameWon[0].forEach(element => {
+            setTimeout(()=>{
+                document.getElementById(element).style.background = "red";
+                document.getElementById(element).style.transition = "background 0.3s linear";
+                count_time++;
+            },300)
+        });
         setTimeout(() => {
             declareWinner(player);
-        }, 3000);
+        }, 300*gameWon[0].length +200);
     }
     return gameWon[1];
 }
@@ -231,7 +232,6 @@ function checkWin(Board1) {
         if ((num_X == length_win && num_O == 0) || (num_X == 0 && num_O == length_win)) {
             check = 1;
             win_seq = element;
-            return [win_seq, true];
         }
     })
     if (check)
@@ -247,28 +247,7 @@ function checkTie() {
     }
     document.getElementById("playbut").removeEventListener('click', backtoMenu);
     document.getElementById("restart-but").removeEventListener('click', restart);
-    let count_time = 0;
-    while (count_time <= 3) {
-        if (count_time % 2 == 0) {
-            setTimeout(() => {
-                for (let i = 0; i < Math.pow(sizeOfBoard, 2); i++) {
-                    document.getElementById(i).style.transition = "all 0.7s linear";
-                    document.getElementById(i).style.transform = "scale(1.3)";
-                }
-            }, 700 * (count_time + 1));
-        } else {
-            setTimeout(() => {
-                for (let i = 0; i < Math.pow(sizeOfBoard, 2); i++) {
-                    document.getElementById(i).style.transition = "all 0.7s linear";
-                    document.getElementById(i).style.transform = "scale(1)";
-                }
-            }, 700 * (count_time + 1));
-        }
-        count_time++;
-    }
-    setTimeout(() => {
         declareWinner("Tie Game!!!");
-    }, 3500);
 
     return true;
 }
@@ -336,7 +315,7 @@ function _checkTie(_Board) {
 }
 
 function bestSpot(_Board, player) {
-    if (Find_available_node(_Board) < 25) {
+    if (Find_available_node(_Board).length < 25) {
         return alpha_beta_pruning(_Board, 0, AIplayer, -Infinity, Infinity)[0];
     } else
         return eval_large_board(_Board);
@@ -353,15 +332,15 @@ function alpha_beta_pruning(_Board, depth, player, alpha, beta) {
         _boardCopy[list[i]] = player;
         if (checkWin(_boardCopy)[1]) {
             if (player == AIplayer)
-                list_return_value.push([list[i], 10000]);
+                list_return_value.push([list[i], 100]);
             else
-                list_return_value.push([list[i], -10000]);
+                list_return_value.push([list[i], -20]);
         } else if (_checkTie(_boardCopy)) {
             list_return_value.push([list[i], 0]);
         }
         else {
             let value;
-            if (depth < 2) {
+            if (depth < 1) {
                 value = alpha_beta_pruning(_boardCopy, depth + 1, player == AIplayer ? humans : AIplayer, alpha, beta);
             } else {
                 value = eval(_boardCopy, list[i]);
@@ -391,6 +370,7 @@ function eval_large_board(_Board) {
         Board_copy[element] = AIplayer;
         list_return_value.push([Point(Board_copy), element]);
     })
+    console.log(list_return_value);
     let max = [-Infinity, 1];
     for (let i = 0; i < list_return_value.length; i++) {
         if (list_return_value[i][0] > max[0])
@@ -426,17 +406,20 @@ function calculate(numX, numO) {
     else
         length_win = 5;
     let point = 0;
-    
-    if (numX == length_win - 1 && numO == 0)
-        point = -1000;
-    else if (numO > 0)
+    if (numO === length_win)
+        point = 100;
+    else if(numX === length_win)
+        point = -20;
+    else if(numO === length_win -1 && numX === 0)
+        point = 5;
+    else if(numX === length_win -1 && numO === 0)
+        point = -5;
+    else if(numO === length_win -2 && numX === 0 && length_win >= 4)
+        point = 2;
+    else if(numX === length_win -2 && numO === 0 && length_win >= 4)
+        point = -2;
+    else if(numO > 0)
         point = 1;
-    else if (numO == length_win - 1 && numX == 0)
-        point = 500;
-    else if (numX == length_win - 2 && numO == 0 && length_win >= 4)
-        point = -2000;
-    else if (numO == length_win - 2 && numX == 0 && length_win >= 4)
-        point = 1500;
     return point;
 }
 

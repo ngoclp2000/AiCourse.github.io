@@ -30,10 +30,14 @@ function restart() {
     document.getElementById("left-player").innerText = "0";
 }
 function backtoMenu() {
+    sizeOfBoard = undefined;
+    typeGame = undefined;
+    count_boolean=0;
     document.getElementById("myNav").style.width = "0%";
     document.querySelector("#playing").style.display = "none";
     BoardStart.style.display = "none";
     menu.style.removeProperty("display");
+    document.getElementById("option-but").style.display = "none";
     button1[0].style.display = "none";
     button1[1].style.display = "none";
     button1[2].style.display = "none";
@@ -53,6 +57,10 @@ function pause() {
 }
 function resume() {
     document.querySelector("#pausegame").style.width = "0%";
+}
+function pausegame(){
+    document.getElementById("pausegame").style.width = "100%";
+
 }
 var sound = new Audio();         // create the audio
 sound.src = "sound.wav";  // set the resource location 
@@ -93,24 +101,24 @@ setInterval(function () {
     } else if (sizeOfBoard == 3 && innerWidth >= 320 && innerWidth <= 414) {
         document.getElementById("main").style.gridTemplateColumns = "20% 60% 20%";
     }
-    /*if (innerWidth > 1500 && count_special == 0) {
-        let i = document.createElement('a');
-        i.setAttribute('class', 'sizeX');
-        i.setAttribute('id', 's9');
-        i.innerText = "9x9";
-        i.addEventListener('click', special);
-        document.getElementsByClassName("numberOfplayer")[1].appendChild(i);
-        count_special++;
-        boolean_type++;
-    }
-    if (innerWidth < 1500) {
-        if (boolean_type == 1) {
-            let i = document.getElementsByClassName("numberOfplayer")[1];
-            i.removeChild(i.lastChild);
-        }
-        boolean_type = 0;
-        count_special = 0;
-    }*/
+    // if (innerWidth > 1500 && count_special == 0) {
+    //     let i = document.createElement('a');
+    //     i.setAttribute('class', 'sizeX');
+    //     i.setAttribute('id', 's9');
+    //     i.innerText = "9x9";
+    //     i.addEventListener('click', special);
+    //     document.getElementsByClassName("numberOfplayer")[1].appendChild(i);
+    //     count_special++;
+    //     boolean_type++;
+    // }
+    // if (innerWidth < 1500) {
+    //     if (boolean_type == 1) {
+    //         let i = document.getElementsByClassName("numberOfplayer")[1];
+    //         i.removeChild(i.lastChild);
+    //     }
+    //     boolean_type = 0;
+    //     count_special = 0;
+    // }
 }, 0);
 function special() {
     size(9);

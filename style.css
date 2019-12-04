@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url(background1.jpg);
+    background:black
 }
 
 .ttt {
@@ -23,11 +23,11 @@ a {
 
 td {
     border: 2px solid black;
-    height: 4.2vw;
-    width: 4.2vw;
-    font-size: 3vw;
+    height: 4vw;
+    width: 4vw;
+    font-size: 2vw;
     text-align: center;
-    font-family: "Comic Sans MS", cursive;
+    font-family: 'Baloo Da', cursive;
     cursor: pointer;
     position: relative;
     color: black;
@@ -67,8 +67,8 @@ table tr td:last-child {
     width: 100%;
     z-index: 0;
     position: relative;
+    margin-top: 20px;
 }
-
 .main {
     display: none;
     height: auto;
@@ -89,6 +89,13 @@ table tr td:last-child {
     text-align: center;
     font-family: 'Luckiest Guy', cursive;
     font-size: 30px;
+    margin-top: 20px;
+    background-image: url("cover3.png") !important;
+    max-height: 100%;
+    background-repeat:no-repeat;
+background-size: 90% auto ;
+
+background-position:center;
 }
 
 .lines {
@@ -186,6 +193,9 @@ ul {
     display: none;
     margin-right: 10px;
     cursor: pointer;
+    margin:7px;
+    color: black !important;
+    background-color: white !important;
 }
 
 #playing {
@@ -295,10 +305,12 @@ ul {
     flex-direction: row;
     justify-content: center;
 }
-
+button {
+    background-color: white !important;
+}
 #option-but {
     margin: 10px 10px !important;
-    display: flex;
+    display: none;
     justify-content: center;
     width: auto;
     font-size: 1vw;
