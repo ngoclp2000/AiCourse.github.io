@@ -50,6 +50,9 @@
       .option3 {
          width: 23vw;
       }
+      button{
+         font-size: 2.5vw;
+      }
    }
 
    /*Smart Phone lanscapce */
@@ -125,7 +128,7 @@
       td {
          height: 10vw;
          width: 10vw;
-         font-size: 6vw;
+         font-size: 5.5vw;
       }
       .content-main {
          grid-template-columns: 11% 78% 11% !important;
@@ -161,6 +164,9 @@
       }
       .option3 {
          width: 20vw;
+      }
+      button{
+         font-size: 2vw !important;
       }
    }
 

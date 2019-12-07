@@ -195,16 +195,27 @@ function fill_in_board(id, player) {
         document.getElementById("playbut").removeEventListener('click', backtoMenu);
         document.getElementById("restart-but").removeEventListener('click', restart);
         document.getElementById("pause-game").removeEventListener('click',pausegame);
-        gameWon[0].forEach(element => {
-            setTimeout(()=>{
-                document.getElementById(element).style.background = "red";
-                document.getElementById(element).style.transition = "background 0.3s linear";
-                count_time++;
-            },300)
-        });
+        while (count_time <= 3) {
+            if (count_time % 2 == 0) {
+                setTimeout(() => {
+                    gameWon[0].forEach((element) => {
+                        document.getElementById(element).style.transition = "all 0.7s linear";
+                        document.getElementById(element).style.transform = "scale(1.3)";
+                    })
+                }, 700 * (count_time + 1));
+            } else {
+                setTimeout(() => {
+                    gameWon[0].forEach((element) => {
+                        document.getElementById(element).style.transition = "all 0.7s linear";
+                        document.getElementById(element).style.transform = "scale(1)";
+                    })
+                }, 700 * (count_time + 1));
+            }
+            count_time++;
+        }
         setTimeout(() => {
             declareWinner(player);
-        }, 300*gameWon[0].length +200);
+        }, 3000);
     }
     return gameWon[1];
 }
@@ -247,7 +258,29 @@ function checkTie() {
     }
     document.getElementById("playbut").removeEventListener('click', backtoMenu);
     document.getElementById("restart-but").removeEventListener('click', restart);
+    let count_time =0;
+    while (count_time <= 3) {
+        if (count_time % 2 == 0) {
+            setTimeout(() => {
+                for(let i = 0 ; i < Math.pow(sizeOfBoard,2) ; i++){
+                    document.getElementById(i).style.transition = "all 0.7s linear";
+                    document.getElementById(i).style.transform = "scale(1.3)";
+                }
+            }, 700 * (count_time + 1));
+        } else {
+            setTimeout(() => {
+                for (let index = 0; index < Math.pow(sizeOfBoard,2); index++) {
+                    document.getElementById(index).style.transition = "all 0.7s linear";
+                    document.getElementById(index).style.transform = "scale(1)";
+                }
+            }, 700 * (count_time + 1));
+        }
+        count_time++;
+    }
+    setTimeout(() => {
         declareWinner("Tie Game!!!");
+    }, 3000);
+    
 
     return true;
 }
@@ -332,15 +365,15 @@ function alpha_beta_pruning(_Board, depth, player, alpha, beta) {
         _boardCopy[list[i]] = player;
         if (checkWin(_boardCopy)[1]) {
             if (player == AIplayer)
-                list_return_value.push([list[i], 100]);
+                list_return_value.push([list[i], 20000]);
             else
-                list_return_value.push([list[i], -20]);
+                list_return_value.push([list[i], -20000]);
         } else if (_checkTie(_boardCopy)) {
             list_return_value.push([list[i], 0]);
         }
         else {
             let value;
-            if (depth < 1) {
+            if (depth < 3) {
                 value = alpha_beta_pruning(_boardCopy, depth + 1, player == AIplayer ? humans : AIplayer, alpha, beta);
             } else {
                 value = eval(_boardCopy, list[i]);
@@ -355,6 +388,7 @@ function alpha_beta_pruning(_Board, depth, player, alpha, beta) {
         if (alpha >= beta)
             break;
     }
+    console.log(list_return_value)
     if (player === AIplayer) {
         return find_max(list_return_value);
     } else {
@@ -407,19 +441,21 @@ function calculate(numX, numO) {
         length_win = 5;
     let point = 0;
     if (numO === length_win)
-        point = 100;
+        point = 20000;
     else if(numX === length_win)
-        point = -20;
+        point = -20000;
     else if(numO === length_win -1 && numX === 0)
-        point = 5;
+        point = 500;
     else if(numX === length_win -1 && numO === 0)
-        point = -5;
+        point = -1000;
     else if(numO === length_win -2 && numX === 0 && length_win >= 4)
-        point = 2;
+        point = 50;
     else if(numX === length_win -2 && numO === 0 && length_win >= 4)
-        point = -2;
+        point = -200;
     else if(numO > 0)
         point = 1;
+    else if(numX >0)
+        point =-1;
     return point;
 }
 
