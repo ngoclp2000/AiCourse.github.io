@@ -258,6 +258,7 @@ function checkTie() {
     }
     document.getElementById("playbut").removeEventListener('click', backtoMenu);
     document.getElementById("restart-but").removeEventListener('click', restart);
+    document.getElementById("pause-game").removeEventListener('click',pausegame);
     let count_time =0;
     while (count_time <= 3) {
         if (count_time % 2 == 0) {
@@ -455,7 +456,7 @@ function calculate(numX, numO) {
     else if(numO > 0)
         point = 1;
     else if(numX >0)
-        point =-1;
+        point =-1;  
     return point;
 }
 
